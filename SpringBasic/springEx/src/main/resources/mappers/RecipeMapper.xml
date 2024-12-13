@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.busanit501.springex.mapper.RecipeMapper">
+    <select id="getTime" resultType="string">
+        select now()
+    </select>
+
+    <insert id="insert">
+        insert into tbl_recipe (recipe_name, ingredients, method, urlsource)
+        values (#{recipe_name}, #{ingredients}, #{method}, #{urlsource})
+    </insert>
+
+    <select id="selectAll" resultType="com.busanit501.springex.domain.RecipeVO">
+        select *
+        from tbl_recipe
+        order by recipe_id desc
+    </select>
+
+    <select id="selectOne" resultType="com.busanit501.springex.domain.RecipeVO">
+        select *
+        from tbl_recipe
+        where recipe_id = #{recipe_id}
+    </select>
+
+    <delete id="delete">
+        delete
+        from tbl_recipe
+        where recipe_id = #{recipe_id}
+    </delete>
+
+    <update id="update">
+        update tbl_recipe
+        set recipe_name    = #{recipe_name},
+            ingredients  = #{ingredients},
+            method = #{method},
+            urlsource = #{urlsource}
+        where recipe_id = #{recipe_id}
+    </update>
+
+    <select id="selectList" resultType="com.busanit501.springex.domain.RecipeVO">
+        select * from tbl_recipe
+        <include refid="search"></include>
+        order by recipe_id desc limit #{skip}, #{size}
+    </select>
+
+    <select id="getCount" resultType="int">
+        select count(recipe_id)
+        from tbl_recipe
+        <include refid="search"></include>
+    </select>
+
+    <sql id="search">
+        <where>
+            <if test="types != null and types.length >0">
+                <foreach collection="types" item="type"
+                         open="(" close=")" separator="OR">
+
+                    <if test="type == 'n'.toString()">
+                        recipe_name like concat('%',#{keyword},'%')
+                    </if>
+                    <if test="type == 'w'.toString()">
+                        ingredients like concat('%',#{keyword},'%')
+                    </if>
+                </foreach>
+            </if>
+
+
+            <if test="from != null">
+                <trim prefix="and">
+                    updateday &gt;= #{from}
+                </trim>
+            </if>
+
+            <if test="to != null">
+                <trim prefix="and">
+                    updateday &lt;= #{to}
+                </trim>
+            </if>
+
+        </where>
+    </sql>
+
+
+</mapper>
+
+
+
+
+
+
+
+

@@ -1,0 +1,1 @@
+10:46:00.359 [Test worker] INFO  com.busanit501.helloword2.jdbc.service.TodoService-todoVo : TodoVO(tno=null, title=샘플 작업 1126, dueDate=2024-11-26, finished=false)

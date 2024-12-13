@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.busanit501.minitest.mapper.FoodMapper">
+    <select id="getTime" resultType="string">
+        select now()
+    </select>
+
+    <!--    #{title} -> foodVO, getTitle 로 접근하는 것과 동일한 효과-->
+    <insert id="insert">
+        insert into food (menu, price, dueDate, finished)
+        values (#{menu}, #{price}, #{dueDate}, #{finished})
+    </insert>
+
+    <!--    여러개 행 조회, 각행의 요소, foodVO , -->
+    <select id="selectAll" resultType="com.busanit501.minitest.domain.FoodVO">
+        select * from food order by tno desc
+    </select>
+
+    <select id="selectOne" resultType="com.busanit501.minitest.domain.FoodVO">
+        select * from food where tno = #{tno}
+    </select>
+
+    <delete id="delete">
+        delete from food where tno = #{tno}
+    </delete>
+
+    <update id="update">
+        update food set menu = #{menu}, price = #{price}, dueDate = #{dueDate}, finished = #{finished}
+        where tno = #{tno}
+    </update>
+
+
+
+    <!--    페이징 처리-->
+
+    <select id="selectList" resultType="com.busanit501.minitest.domain.FoodVO">
+        select * from food order by tno desc limit #{skip}, #{size}
+    </select>
+
+    <select id="getCount" resultType="int">
+        select count(tno) from food
+    </select>
+
+
+</mapper>

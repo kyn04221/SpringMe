@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/base.html}">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+
+
+<body>
+
+<div layout:fragment="content">
+    <hr/>
+    <h1 th:text="${msg}"></h1>
+
+    <a th:href="@{/todo/register(name='전효정',age=28)}">/register 쿼리스트링 </a>
+    <hr/>
+</div>
+
+</body>
+</html>

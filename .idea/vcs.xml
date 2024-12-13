@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="VcsDirectoryMappings">
+    <mapping directory="$PROJECT_DIR$" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/Helloword2" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/SpringBasic" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/SpringBasic/boot501" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/SpringBasic/minitest" vcs="Git" />
+  </component>
+</project>
