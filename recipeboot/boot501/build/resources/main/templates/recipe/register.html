@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="ko"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="www.thymeleaf.org"
+      layout:decorate="~{layout/base.html}"
+>
+<body>
+<div layout:fragment="content">
+
+    <div class="row mt-3">
+        <div class="col">
+            <div class="card">
+                <div class="card-header">
+                    Reecipe Register
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">
+                        Reecipe Register
+                    </h5>
+                    <form method="post" action="/recipe/register">
+                        <div class="mb-3">
+                            <label for="recipename" class="form-control">요리명</label>
+                            <input type="text" class="form-control" id="recipename" name="recipename" placeholder="요리명을 입력해주세요">
+                        </div>
+                        <div class="mb-3">
+                            <label for="ingredients" class="form-control">재료</label>
+                            <textarea type="text" class="form-control col-sm-5" id="ingredients"
+                                      name="ingredients" rows="5" placeholder="재료를 입력해주세요"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="method" class="form-control">레시피</label>
+                            <input type="text" class="form-control" id="method" name="method" placeholder="레시피입력칸">
+                        </div>
+                        <div class="mb-3">
+                            <label for="urlsource" class="form-control">참고 URL</label>
+                            <input type="text" class="form-control" id="urlsource" name="urlsource" placeholder="URL">
+                        </div>
+                        <div class="mb-3">
+                            <button type="submit" class="btn btn-primary submitBtn">저장</button>
+                            <button type="reset" class="btn btn-danger">초기화</button>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+<script layout:fragment="javascript" th:inline="javascript">
+
+    const errors = [[${errors}]]
+    console.log(errors)
+
+    let errorMsg = ''
+    if(errors) {
+        for(let i = 0; i <errors.length; i++) {
+            errorMsg += `${errors[i].field}는 ${errors[i].code} \n`
+        }
+        alert(errorMsg)
+    }
+
+</script>
+
+</body>
+</html>
