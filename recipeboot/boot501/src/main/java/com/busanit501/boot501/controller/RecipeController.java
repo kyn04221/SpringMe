@@ -38,12 +38,9 @@ public class RecipeController {
     public String registerPost(@Valid RecipeDTO recipeDTO,
                                BindingResult bindingResult,
                                RedirectAttributes redirectAttributes) {
-//        log.info("recipeController register post 로직처리: ");
-//        log.info("recipeController register post  recipeDTO : " + recipeDTO);
 
         if (bindingResult.hasErrors()) {
-            log.info("has errors : 유효성 에러가 발생함.");
-            // 1회용으로, 웹 브라우저에서, errors , 키로 조회 가능함. -> 뷰 ${errors}
+            log.info("has errors : 유효성 에러가 발생");
             redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors());
             return "redirect:/recipe/register";
         }
@@ -58,16 +55,50 @@ public class RecipeController {
     }
 
     @GetMapping("/read")
-    public void read(Long bno, PageRequestDTO pageRequestDTO,
+    public void read(Long recipeid, PageRequestDTO pageRequestDTO,
                      Model model) {
-        RecipeDTO recipeDTO = recipeService.readOne(bno);
+        RecipeDTO recipeDTO = recipeService.readOne(recipeid);
         model.addAttribute("dto", recipeDTO);
     }
 
     @GetMapping("/update")
-    public void update(Long bno, PageRequestDTO pageRequestDTO,
+    public void update(Long recipeid, PageRequestDTO pageRequestDTO,
                        Model model) {
-        RecipeDTO recipeDTO = recipeService.readOne(bno);
+        RecipeDTO recipeDTO = recipeService.readOne(recipeid);
         model.addAttribute("dto", recipeDTO);
     }
+
+    @PostMapping("/update")
+    public String updatePost(@Valid RecipeDTO recipeDTO,
+                             BindingResult bindingResult,
+                             PageRequestDTO pageRequestDTO,
+                             String keyword2,String page2, String type2,
+                             RedirectAttributes redirectAttributes) {
+
+
+        if (bindingResult.hasErrors()) {
+            log.info("has errors : 유효성 에러가 발생함.");
+
+            redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors());
+            return "redirect:/recipe/update?recipeid="+recipeDTO.getRecipeid()+"&keyword="+keyword2+"&page="+page2+"&type="+type2;
+        }
+
+        recipeService.update(recipeDTO);
+        redirectAttributes.addFlashAttribute("result", recipeDTO.getRecipeid());
+        redirectAttributes.addFlashAttribute("resultType", "update");
+
+        return "redirect:/recipe/list?recipe="+recipeDTO.getRecipeid()+"&keyword="+keyword2+"&page="+page2+"&type="+type2;
+
+    }
+
+    @PostMapping("/delete")
+    public String delete(Long recipeid,
+                         String keyword2,String page2, String type2,
+                         RedirectAttributes redirectAttributes) {
+        recipeService.delete(recipeid);
+        redirectAttributes.addFlashAttribute("result", recipeid);
+        redirectAttributes.addFlashAttribute("resultType", "delete");
+        return "redirect:/recipe/list?"+"&keyword="+keyword2+"&page="+page2+"&type="+type2;
+    }
+
 }

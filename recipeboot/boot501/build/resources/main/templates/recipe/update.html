@@ -11,72 +11,85 @@
         <div class="col">
             <div class="card">
                 <div class="card-header">
-                    Reecipe update
+                    Recipe update
                 </div>
                 <div class="card-body">
                     <h5 class="card-title">
-                        Reecipe update
+                        Recipe update
                     </h5>
                     <form id="f1" method="post" th:action="@{/recipe/update}">
+                        <input type="hidden" name="keyword2" th:value="${pageRequestDTO.keyword}">
+                        <input type="hidden" name="page2" th:value="${pageRequestDTO.page}">
+                        <input type="hidden" name="type2" th:value="${pageRequestDTO.type}">
                         <div class="mb-3">
-                            <label for="recipeid" class="form-control">no</label>
+                            <label for="recipeid" class="form-control">레시피 번호</label>
                             <input type="text" class="form-control" id="recipeid" name="recipeid"
                                    th:value="${dto.recipeid}" readonly>
                         </div>
                         <div class="mb-3">
                             <label for="recipename" class="form-control">요리명</label>
-                            <input type="text" class="form-control" id="recipename" name="recipename" placeholder="요리명을 입력해주세요"
-                             th:value="${dto.recipename}">
+                            <input type="text" class="form-control" id="recipename" name="recipename"
+                                   placeholder="요리명을 입력해주세요"
+                                   th:value="${dto.recipename}">
                         </div>
                         <div class="mb-3">
                             <label for="ingredients" class="form-control">재료</label>
-                            <textarea type="text" class="form-control col-sm-5" id="ingredients"
-                                      name="ingredients" rows="5" placeholder="재를 입력해주세요"
-                                       >[[${dto.ingredients}]]</textarea>
+                            <input type="text" class="form-control col-sm-5" id="ingredients"
+                                   name="ingredients" rows="5" placeholder="재를 입력해주세요"
+                                   th:value="${dto.ingredients}">
                         </div>
                         <div class="mb-3">
-                            <label for="method" class="form-control">재료</label>
-                            <input type="text" class="form-control" id="method" name="method" placeholder="재료"
-                                   th:value="${dto.method}" readonly>
+                            <label for="method" class="form-control">레시피</label>
+                            <textarea type="text" class="form-control col-sm-5" id="method"
+                                      name="method" rows="5" placeholder="조리법을 입력해주세요"
+                                      >[[${dto.method}]]</textarea>
                         </div>
                         <div class="mb-3">
                             <label for="urlsource" class="form-control">참고 URL</label>
                             <input type="text" class="form-control" id="urlsource" name="urlsource" placeholder="재료"
-                                   th:value="${dto.urlsource}" readonly>
-                        </div>
-                        <div class="mb-3">
-                            <label for="createday" class="form-control">등록시간</label>
-                            <input type="text" class="form-control" id="createday" name="createday"
-                                   th:value="${#temporals.format(dto.createday,'yyyy-MM-dd HH:mm:ss')}" readonly>
-                        </div>
-                        <div class="mb-3">
-                            <label for="updateday" class="form-control">수정시간</label>
-                            <input type="text" class="form-control" id="updateday" name="updateday"
-                                   th:value="${#temporals.format(dto.updateday,'yyyy-MM-dd HH:mm:ss')}" readonly>
-                        </div>
-                        <div class="mb-3">
-                            <button type="button" class="btn btn-primary modBtn">수정하기</button>
-                            <button type="button" class="btn btn-danger deleteBtn">삭제하기</button>
-                            <button type="button" class="btn btn-secondary listBtn">목록가기</button>
+                                   th:value="${dto.urlsource}">
                         </div>
 
+                        <div class="mb-3" th:with="link = ${pageRequestDTO.link}">
+                            <button type="submit" class="btn btn-primary modBtn">수정하기</button>
+                            <button type="button" class="btn btn-danger deleteBtn">삭제하기</button>
+                            <a th:href="|@{/recipe/list}?${link}|">
+                                <button type="button" class="btn btn-secondary listBtn">목록가기</button>
+                            </a>
+                        </div>
                     </form>
                 </div>
             </div>
         </div>
     </div>
-
-
 </div>
+
 
 <script layout:fragment="javascript" th:inline="javascript">
 
-   // 수정폼으로 이동하기.
-   document.querySelector(".submitBtn").addEventListener("click",
-       function (e){
-           // 수정폼으로 가야함. 그러면, 필요한 준비물 tno 번호가 필요함
-           self.location = `/recipe/update?bno=${dto.recipeid}&${pageRequestDTO.link}`
-               ,false})
+    const errors = [[${errors}]]
+    console.log(errors)
+
+    let errorMsg = ''
+    if (errors) {
+        for (let i = 0; i < errors.length; i++) {
+            errorMsg += `${errors[i].field}는 ${errors[i].code} \n`
+        }
+        alert(errorMsg)
+    }
+
+    document.querySelector(".deleteBtn").addEventListener("click",
+        function (e) {
+            const formObj = document.querySelector("form")
+
+            e.preventDefault()
+            e.stopPropagation()
+
+            formObj.action = "/recipe/delete"
+            formObj.method = "post"
+
+            formObj.submit()
+        }, false)
 
 </script>
 
