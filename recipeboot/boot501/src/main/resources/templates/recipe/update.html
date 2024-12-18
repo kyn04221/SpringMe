@@ -45,6 +45,12 @@
                                       >[[${dto.method}]]</textarea>
                         </div>
                         <div class="mb-3">
+                            <label for="writer" class="form-control">작성자</label>
+                            <input type="text" class="form-control" id="writer" name="writer"
+                                   placeholder="지금은 직접 작성자를 입력해주세요, 로그인 후 로그인 유저가 자동으로 탑재됨."
+                                   th:value="${dto.writer}" readonly>
+                        </div>
+                        <div class="mb-3">
                             <label for="urlsource" class="form-control">참고 URL</label>
                             <input type="text" class="form-control" id="urlsource" name="urlsource" placeholder="재료"
                                    th:value="${dto.urlsource}">

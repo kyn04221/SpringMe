@@ -12,7 +12,7 @@
     <!--        Launch demo modal-->
     <!--    </button>-->
 
-    <!-- Modal -->
+<!--     Modal -->
 <!--    <div class="modal fade" id="exampleModal" tabindex="-1"-->
 <!--         aria-labelledby="exampleModalLabel" aria-hidden="true">-->
 <!--        <div class="modal-dialog">-->
@@ -60,14 +60,17 @@
                                     <option value="">
                                         -----
                                     </option>
-                                    <option value="t" th:selected="${pageRequestDTO.type == 't'}">
+                                    <option value="n" th:selected="${pageRequestDTO.type == 'n'}">
                                         요리명
                                     </option>
-                                    <option value="c" th:selected="${pageRequestDTO.type == 'c'}">
+                                    <option value="g" th:selected="${pageRequestDTO.type == 'g'}">
                                         재료
                                     </option>
-                                    <option value="tc" th:selected="${pageRequestDTO.type == 'tc'}">
+                                    <option value="ng" th:selected="${pageRequestDTO.type == 'ng'}">
                                         요리명+재료
+                                    </option>
+                                    <option value="ngw" th:selected="${pageRequestDTO.type == 'ngw'}">
+                                        전체 검색
                                     </option>
                                 </select>
                             </div>
@@ -100,6 +103,7 @@
                         <thead>
                         <tr>
                             <th scope="col">no</th>
+                            <th scope="col">작성자</th>
                             <th scope="col">요리명</th>
                             <th scope="col">재료</th>
                         </tr>
@@ -109,12 +113,18 @@
                             <th scope="row">
                                 [[${dto.recipeid}]]
                             </th>
+                            <td>[[${dto.writer}]]</td>
                             <td>
                                 <a th:href="|@{/recipe/read(recipeid=${dto.recipeid})}&${link}|">
                                     [[${dto.recipename}]]
                                 </a>
+                                <span class="badge progress-bar-success"
+                                      style="background-color: crimson">
+                                    [[${dto.replyCount}]]
+                                </span>
                             </td>
                             <td>[[${dto.ingredients}]]</td>
+
                         </tr>
                         </tbody>
                     </table>

@@ -1,29 +1,20 @@
 package com.busanit501.boot501.dto;
 
-import jakarta.validation.constraints.NotEmpty;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
+// 화면 목록에, 댓글의 갯수를 나타내기위한 박스
 @Data
-@Builder
-@AllArgsConstructor
-@NoArgsConstructor
-public class RecipeDTO {
+public class RecipeListReplyCountDTO {
     private  Long recipeid;
-    @NotEmpty
     private  String recipename;
-    @NotEmpty
     private  String ingredients;
-    @NotEmpty
     private  String method;
-    @NotEmpty
     private  String writer;
-
     private  String urlsource;
-    private LocalDateTime createday;
     private LocalDateTime updateday;
+
+    // 댓글의 갯수
+    private Long replyCount;
 }

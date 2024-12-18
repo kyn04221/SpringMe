@@ -37,6 +37,8 @@ public class QRecipe extends EntityPathBase<Recipe> {
 
     public final StringPath urlsource = createString("urlsource");
 
+    public final StringPath writer = createString("writer");
+
     public QRecipe(String variable) {
         super(Recipe.class, forVariable(variable));
     }

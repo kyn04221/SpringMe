@@ -23,6 +23,11 @@
                                th:value="${dto.recipeid}" readonly>
                     </div>
                     <div class="mb-3">
+                        <label for="writer" class="form-control">작성자</label>
+                        <input type="text" class="form-control" id="writer" name="writer" placeholder="지금은 직접 작성자를 입력해주세요, 로그인 후 로그인 유저가 자동으로 탑재됨."
+                               th:value="${dto.writer}" readonly>
+                    </div>
+                    <div class="mb-3">
                         <label for="recipename" class="form-control">요리명</label>
                         <input type="text" class="form-control" id="recipename" name="recipename"
                                placeholder="요리명 입력해주세요"
@@ -56,7 +61,30 @@
             </div>
         </div>
     </div>
+    <!--    1)댓글의 목록, 2)댓글 추가 버튼 , 3)페이징 번호 화면 작업-->
+    <div class="row mt-3">
+        <!--        부트 스트랩에서, 전체 가로 영역을 12 등분으로 나눔.-->
+        <!--        col-md-12 : 전체를 차지-->
+        <div class="col-md-12">
+            <!--            2)댓글 추가 버튼 : addReplyBtn -->
+            <div class="my-4">
+                <button class="btn btn-info addReplyBtn">댓글 등록</button>
+            </div>
+            <!--            1)댓글의 목록 : replyList -->
+            <ul class="list-group replyList">
 
+            </ul>
+        </div>
+
+        <!--        댓글의 페이지 번호 출력-->
+        <div class="row mt-3">
+            <div class="col">
+                <ul class="pagination replyPaging">
+
+                </ul>
+            </div>
+        </div>
+    </div>
 
 </div>
 
@@ -70,6 +98,10 @@
                 , false
         })
 
+
+    // 비동기 함수, 테스트 작업.
+    const bno = [[${dto.bno}]]
+    get(bno)
 </script>
 
 </body>

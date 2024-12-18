@@ -3,6 +3,7 @@ package com.busanit501.boot501.controller;
 import com.busanit501.boot501.dto.PageRequestDTO;
 import com.busanit501.boot501.dto.PageResponseDTO;
 import com.busanit501.boot501.dto.RecipeDTO;
+import com.busanit501.boot501.dto.RecipeListReplyCountDTO;
 import com.busanit501.boot501.service.RecipeService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -25,7 +26,10 @@ public class RecipeController {
 
     @GetMapping("/list")
     public void list(PageRequestDTO pageRequestDTO, Model model ) {
-        PageResponseDTO<RecipeDTO> responseDTO = recipeService.list(pageRequestDTO);
+//        PageResponseDTO<RecipeDTO> responseDTO = recipeService.list(pageRequestDTO);
+        // 교체 작업, 수정1
+        PageResponseDTO<RecipeListReplyCountDTO> responseDTO = recipeService.listWithReplyCount(pageRequestDTO);
+
         log.info(responseDTO);
         model.addAttribute("responseDTO", responseDTO);
     }
