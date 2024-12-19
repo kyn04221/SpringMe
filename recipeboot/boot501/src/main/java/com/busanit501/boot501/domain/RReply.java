@@ -42,9 +42,12 @@ public class RReply extends RecipeEntity {
         this.recipe = recipe;
     }
 
-    public void changeReplyText(String replyText) {
-        this.replyText = replyText;
-    }
-
-
+//    public void changeReplyText(String replyText) {
+//        this.replyText = replyText;
+//    }
+//
+public void changeReplyTextReplyer(String replyText, String replyer) {
+    this.replyText = replyText;
+    this.replyer = replyer;
+}
 }

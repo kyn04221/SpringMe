@@ -26,4 +26,6 @@ public class RReplyDTO {
     private String replyer;
 
     private LocalDateTime regDate,modDate;
+
+
 }

@@ -53,19 +53,60 @@ public class ReplyController {
         if (bindingResult.hasErrors()) {
             throw new BindException(bindingResult);
         }
-
-        Map<String,Long> map = Map.of("rno",100L);
+        Long rno = replyService.register(replyDTO);
+        Map<String,Long> map = Map.of("rno",rno);
         return ResponseEntity.ok(map);
     }
 
     //댓글 목록 조회,
     // localhost:8080/replies/list/122
     @Tag(name = "댓글 목록 조회",description = "댓글 목록 조회 RESTful get방식")
-    @GetMapping("/list/{bno}")
-    public PageResponseDTO<RReplyDTO> getList(
-            @PathVariable("bno") Long bno, PageRequestDTO pageRequestDTO    )
+    @GetMapping(value ="/list/{recipeid}")
+    public PageResponseDTO<RReplyDTO> getList(@PathVariable("recipeid") Long recipeid, PageRequestDTO pageRequestDTO)
     {
-        return null;
+        log.info(" ReplyController getList: recipeid={}", recipeid);
+        PageResponseDTO<RReplyDTO> responseDTO = replyService.listWithReply(recipeid, pageRequestDTO);
+        return responseDTO;
+    }
+
+    // 댓글 하나 조회, 상세보기
+    // localhost:8080/replies/{rno:댓글번호}
+    @Tag(name = "댓글 하나 조회",description = "댓글 하나 조회 RESTful get방식")
+    @GetMapping(value ="/{rno}")
+    public RReplyDTO getRead(@PathVariable("rno") Long rno)
+    {
+        log.info(" ReplyController getRead: rno={}", rno);
+        RReplyDTO replyDTO = replyService.readOne(rno);
+        return replyDTO;
+    }
+
+    // 댓글 수정, 로직처리
+    // localhost:8080/replies/{rno:댓글번호}
+    @Tag(name = "댓글 수정 로직처리",description = "댓글 수정 로직처리 RESTful get방식")
+    @PutMapping(value ="/{rno}")
+    public Map<String,Long> updateReply(
+            @Valid @RequestBody RReplyDTO replyDTO,
+            BindingResult bindingResult,
+            @PathVariable("rno") Long rno) throws BindException {
+        if (bindingResult.hasErrors()) {
+            throw new BindException(bindingResult);
+        }
+        log.info(" ReplyController updateReply: replyDTO={}", replyDTO);
+        log.info(" ReplyController updateReply: rno={}", rno);
+        replyService.update(replyDTO);
+        Map<String,Long> map = Map.of("rno",rno);
+        return map;
+    }
+
+    // 댓글 삭제, 로직처리
+    // localhost:8080/replies/{rno:댓글번호}
+    @Tag(name = "댓글 삭제 로직처리",description = "댓글 삭제 로직처리 RESTful get방식")
+    @DeleteMapping(value ="/{rno}")
+    public Map<String,Long> deleteReply(
+            @PathVariable("rno") Long rno) throws BindException {
+        replyService.delete(rno);
+        Map<String,Long> map = Map.of("rno",rno);
+        return map;
     }
 
 }

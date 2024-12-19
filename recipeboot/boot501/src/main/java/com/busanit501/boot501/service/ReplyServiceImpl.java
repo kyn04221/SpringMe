@@ -55,7 +55,8 @@ public class ReplyServiceImpl implements ReplyService {
     public void update(RReplyDTO replyDTO) {
         Optional<RReply> result = replyRepository.findById(replyDTO.getRno());
         RReply reply = result.orElseThrow();
-        reply.changeReplyText(replyDTO.getReplyText());
+//        reply.changeReplyText(replyDTO.getReplyText());
+        reply.changeReplyTextReplyer(replyDTO.getReplyText(),replyDTO.getReplyer());
         replyRepository.save(reply);
     }
 

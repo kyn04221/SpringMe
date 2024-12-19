@@ -14,6 +14,6 @@ public interface ReplyService {
     void delete(Long rno);
 
     // 부모 게시글 번호에 대한 댓글 목록 조회.
-    PageResponseDTO<RReplyDTO> listWithReply(Long bno, PageRequestDTO pageRequestDTO);
+    PageResponseDTO<RReplyDTO> listWithReply(Long recipeid, PageRequestDTO pageRequestDTO);
 }
 

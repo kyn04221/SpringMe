@@ -1,5 +1,7 @@
 package com.busanit501.boot501.service;
 
+import com.busanit501.boot501.dto.PageRequestDTO;
+import com.busanit501.boot501.dto.PageResponseDTO;
 import com.busanit501.boot501.dto.RReplyDTO;
 import lombok.extern.log4j.Log4j2;
 import org.junit.jupiter.api.Test;
@@ -57,8 +59,18 @@ public class ReplyServiceTests {
     }
 
     @Test
+
     public void testDeleteReply() {
         replyService.delete(9L);
     }
 
+    @Test
+    public void testAllReply() {
+        PageRequestDTO pageRequestDTO = PageRequestDTO.builder()
+                .page(1)
+                .size(10)
+                .build();
+        PageResponseDTO<RReplyDTO> result = replyService.listWithReply(99L,pageRequestDTO);
+        log.info("result : " + result);
+    }
 }
