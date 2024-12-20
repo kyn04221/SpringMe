@@ -33,7 +33,7 @@ public class ServiceTests {
     public void testSelectOneRecipe() {
         Long recipeid = 1L;
         RecipeDTO recipeDTO= recipeService.readOne(recipeid);
-        log.info("testSelectOneBoard , 하나 조회 boardDTO: " + recipeDTO.toString());
+        log.info("testSelectOneRecipe , 하나 조회 recipeDTO: " + recipeDTO.toString());
     }
 
     @Test

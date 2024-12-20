@@ -86,6 +86,37 @@
             </div>
         </div>
     </div>
+    <!--    댓글 등록 모달창1-->
+    <div class="modal fade registerModal" tabindex="-1"
+         aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">댓글 등록</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <!--                    댓글 등록 입력폼 추가하기-->
+                    <div class="input-group mb-3">
+                        <span class="input-group-text">내용</span>
+                        <input type="text" class="form-control replyText">
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text">작성자</span>
+                        <input type="text" class="form-control replyer">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary registerCloseBtn" data-bs-dismiss="modal">취소</button>
+                    <button type="button" class="btn btn-primary registerBtn">댓글 등록</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--    댓글 등록 모달창1-->
+
+
+    <!--    댓글 수정 모달창2-->
     <div class="modal fade updateModal" tabindex="-1"
          aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -113,6 +144,7 @@
             </div>
         </div>
     </div>
+    <!--    댓글 수정 모달창2-->
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="/js/reply.js"></script>
 
@@ -131,21 +163,27 @@
         })
 
 
-    // 비동기 함수, 테스트 작업.
+    //recipeController의 recipeDTO의 recipeid
     const recipeid = [[${dto.recipeid}]]
     // 함수 실행 해보기.
     console.log("get 함수 실행1: ")
     get(recipeid)
-    // 함수 정의,
-    // 주의사항, reply.js , 통신 이용해서, 데이터를 전달하는 업무, 백
-    // read.html,  받아온 데이터를 업데이트를 하는 역할. 화면 그려주는 역할. 프론트  react.jsx
 
+    //js에 없음 비동기 아님?????
+    //그냥함수 비동기함수 구분법
     function printReplies(page, size, goLast) {
-
+        //js에 있음 비동기
+        //const recipeid = [[${dto.recipeid}]]의 recipeid?? / 아님 호출용 ?
         getList({recipeid, page, size, goLast})
             .then(
+                //getList에서 반환된 result.data
                 data => {
+                    //data.dtoList는
+                    //getList로 replyController에서 받은 PageResponseDTO의 dtoList
+                    //아래에 있는 printList 함수 호출
                     printList(data.dtoList)
+                    //printList동작 완료시 printPages 동작
+                    //
                     printPages(data)
                 }
             )
@@ -174,7 +212,7 @@
                <span class="col-2">${dto.rno}</span>
                <span class="col-6" data-rno="${dto.rno}">${dto.replyText}</span>
                <span class="col-2">${dto.replyer}</span>
-               <span class="col-2">${dto.regDate}</span>
+               <span class="col-2">${dto.createday}</span>
                `
             }
         }
@@ -211,7 +249,7 @@
         }
         replyPaging.innerHTML = pageStr
     }
-
+//-------------------------------------------------------------------------------------------------------------
     // 페이징 번호 이벤트 핸들러 추가.
     // 1) data-page=1 , 번호를 활용하기.
     // 페이징 번호 화면 구성 <ul> : 고정 -> <li> : 동적 변경

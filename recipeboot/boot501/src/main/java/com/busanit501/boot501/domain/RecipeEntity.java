@@ -21,6 +21,6 @@ abstract class RecipeEntity {
     private LocalDateTime createday;
 
     @LastModifiedDate
-    @Column(name="updateday", updatable = false)
+    @Column(name="updateday", updatable = true)
     private LocalDateTime updateday;
 }

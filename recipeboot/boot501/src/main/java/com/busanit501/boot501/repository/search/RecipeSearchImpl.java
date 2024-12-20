@@ -117,7 +117,7 @@ public class RecipeSearchImpl extends QuerydslRepositorySupport
                         recipe.method,
                         recipe.writer,
 //                        recipe.createday,
-                        recipe.updateday,
+                        recipe.createday,
                         reply.count().as("replyCount")));
 
         this.getQuerydsl().applyPagination(pageable, dtoQuery);

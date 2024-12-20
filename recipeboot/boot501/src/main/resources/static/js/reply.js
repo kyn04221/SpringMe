@@ -27,6 +27,7 @@ async function get(recipeid) {
 }
 
 // 마지막 댓글 위치로 이동하기.
+//rrecipeid 는 read.html에서 넘겨받은 const recipeid = [[${dto.recipeid}]]
 async function getList({recipeid,page,size,goLast}) {
     const result = await axios.get(`/replies/list/${recipeid}`,
         {params: {page,size}})

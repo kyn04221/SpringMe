@@ -24,7 +24,7 @@ public class ReplyServiceTests {
                 .replyText("33댓글 작성 테스트 ")
                 .replyer("333")
                 .recipeid(1L)
-                .regDate(LocalDateTime.now())
+                .createday(LocalDateTime.now())
                 .build();
 
         log.info("replydto " + replyDTO);
@@ -49,7 +49,7 @@ public class ReplyServiceTests {
                 .replyer("333")
                 .rno(3L)
                 .recipeid(1L)
-                .regDate(LocalDateTime.now())
+                .createday(LocalDateTime.now())
                 .build();
 
         // register 함수 호출 전에도,  bno 존재

@@ -13,7 +13,7 @@ public class RecipeListReplyCountDTO {
     private  String method;
     private  String writer;
     private  String urlsource;
-    private LocalDateTime updateday;
+    private LocalDateTime createday;
 
     // 댓글의 갯수
     private Long replyCount;
